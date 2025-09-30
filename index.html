@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>家庭旅游行程计划 - 成都&茂县国庆6日游</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4a90e2, #63b3ed);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header h1 {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+        
+        .header .subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 18px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            border-left: 4px solid #4a90e2;
+        }
+        
+        .card h2 {
+            font-size: 18px;
+            color: #2c5282;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .card h2 i {
+            margin-right: 8px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .info-item {
+            margin-bottom: 10px;
+        }
+        
+        .info-item .label {
+            font-size: 13px;
+            color: #718096;
+            margin-bottom: 4px;
+        }
+        
+        .info-item .value {
+            font-size: 15px;
+            font-weight: 500;
+        }
+        
+        .day-card {
+            margin-bottom: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+        
+        .day-header {
+            background: #4a90e2;
+            color: white;
+            padding: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .day-header .date {
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .day-header .day {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .day-content {
+            padding: 16px;
+        }
+        
+        .time-slot {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .time-slot:last-child {
+            margin-bottom: 0;
+        }
+        
+        .time {
+            min-width: 70px;
+            font-weight: 600;
+            color: #4a90e2;
+            font-size: 14px;
+        }
+        
+        .activity {
+            flex: 1;
+            padding-left: 10px;
+            border-left: 2px solid #e2e8f0;
+        }
+        
+        .activity .title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 15px;
+        }
+        
+        .activity .desc {
+            font-size: 13px;
+            color: #718096;
+        }
+        
+        .todo-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #edf2f7;
+        }
+        
+        .todo-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .todo-checkbox {
+            margin-right: 10px;
+            margin-top: 2px;
+        }
+        
+        .todo-content {
+            flex: 1;
+        }
+        
+        .todo-title {
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+        
+        .todo-desc {
+            font-size: 13px;
+            color: #718096;
+        }
+        
+        .urgent {
+            color: #e53e3e;
+            font-weight: 600;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            color: #718096;
+            font-size: 13px;
+        }
+        
+        .icon {
+            display: inline-block;
+            width: 20px;
+            text-align: center;
+            margin-right: 8px;
+        }
+        
+        @media (max-width: 480px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>家庭旅游行程计划</h1>
+        <div class="subtitle">成都&茂县国庆6日亲子游 · 2024年10月1日-10月6日</div>
+    </div>
+    
+    <div class="card">
+        <h2><span class="icon">ℹ️</span>基本信息</h2>
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="label">出行日期</div>
+                <div class="value">10月1日 - 10月6日</div>
+            </div>
+            <div class="info-item">
+                <div class="label">出行人员</div>
+                <div class="value">家庭群成员</div>
+            </div>
+            <div class="info-item">
+                <div class="label">包车信息</div>
+                <div class="value">全顺9座 川G0D511</div>
+            </div>
+            <div class="info-item">
+                <div class="label">司机</div>
+                <div class="value">王巧方 18008043400</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h2><span class="icon">📅</span>行程概览</h2>
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="label">10月1日</div>
+                <div class="value">天津→成都，武侯祠，锦里</div>
+            </div>
+            <div class="info-item">
+                <div class="label">10月2日</div>
+                <div class="value">熊猫基地，三星堆</div>
+            </div>
+            <div class="info-item">
+                <div class="label">10月3日</div>
+                <div class="value">都江堰→茂县</div>
+            </div>
+            <div class="info-item">
+                <div class="label">10月4日</div>
+                <div class="value">茂县羌寨，叠溪海子</div>
+            </div>
+            <div class="info-item">
+                <div class="label">10月5日</div>
+                <div class="value">茂县→成都，火锅</div>
+            </div>
+            <div class="info-item">
+                <div class="label">10月6日</div>
+                <div class="value">成都→天津</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h2><span class="icon">🏨</span>住宿信息</h2>
+        <div class="info-item">
+            <div class="label">10月1日-3日</div>
+            <div class="value">成都万达颐华酒店 (锦江区橡树林路163号)</div>
+            <div class="value">豪华双床1间 + 高级大床2间 (报中杏建筑)</div>
+        </div>
+        <div class="info-item">
+            <div class="label">10月3日-5日</div>
+            <div class="value">茂县岷江隐里酒店 (茂县晋茂大道218号)</div>
+            <div class="value">双床1间 + 大床2间 (报于美霞、李毅、李霞)</div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h2><span class="icon">✈️</span>航班信息</h2>
+        <div class="info-item">
+            <div class="label">去程 (10月1日)</div>
+            <div class="value">CA2953 天津→成都 (9:30-12:35)</div>
+        </div>
+        <div class="info-item">
+            <div class="label">回程 (10月6日)</div>
+            <div class="value">CA2954 成都→天津 (13:45-16:30)</div>
+        </div>
+        <div class="info-item">
+            <div class="label urgent">重要提示</div>
+            <div class="value urgent">务必告知司机前往天府机场</div>
+        </div>
+    </div>
+    
+    <h2 style="margin: 25px 0 15px; color: #2c5282; font-size: 20px;">每日详细行程</h2>
+    
+    <div class="day-card">
+        <div class="day-header">
+            <div class="date">10月1日 (周二)</div>
+            <div class="day">Day 1：天津 → 成都</div>
+        </div>
+        <div class="day-content">
+            <div class="time-slot">
+                <div class="time">9:30-12:35</div>
+                <div class="activity">
+                    <div class="title">搭乘CA2953航班抵达成都</div>
+                    <div class="desc">务必告知接机司机前往天府机场</div>
+                </div>
+            </div>
+            <div class="time-slot">
+                <div class="time">下午</div>
+                <div class="activity">
+                    <div class="title">武侯祠 → 锦里古街</div>
+                    <div class="desc">已预约下午参观武侯祠，随后游览紧邻的锦里古街</div>
+                </div>
+            </div>
+            <div class="time-slot">
+                <div class="time">18:30</div>
+                <div class="activity">
+                    <div class="title">晚餐：大妙火锅(宽窄巷子店)</div>
+                    <div class="desc">卡座16号，表演时间19:00-19:30，不辣火锅选项</div>
+                </div>
+            </div>
+            <div class="time-slot">
+                <div class="time">住宿</div>
+                <div class="activity">
+                    <div class="title">成都万达颐华酒店</div>
+                    <div class="desc">报"中杏建筑"入住</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="day-card">
+        <div class="day-header">
+            <div class="date">10月2日 (周三)</div>
+            <div class="day">Day 2：熊猫基地 & 三星堆</div>
+        </div>
+        <div class="day-content">
+            <div class="time-slot">
+                <div class="time">上午</div>
+                <div class="activity">
+                    <div class="title">成都大熊猫繁育研究基地</div>
+                    <div class="desc">重点参观幼年大熊猫别墅，建议早到避开人流</div>
+                </div>
+            </div>
+            <div class="time-slot">
+                <div class="time">下午</div>
+                <div class="activity">
+                    <div class="title">三星堆博物馆</div>
+                    <div class="desc">参观青铜神树、纵目面具等文物，建议请讲解员</div>
+                </div>
+            </div>
+            <div class="time-slot">
+                <div class="time">晚上</div>
+                <div class="activity">
+                    <div class="title">自由活动</div>
+                    <div class="desc">返回市区后自由安排晚餐与休息</div>
+                </div>
+            </div>
+            <div class="time-slot">
+                <div class="time">住宿</div>
+                <div class="activity">
+                    <div class="title">成都万达颐华酒店</div>
+                <div class="desc"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="day-card">
+        <div class="day-header">
+            <div class="date">10月3日 (周四)</div>
+            <div class="day">Day 3：都江堰 → 茂县</div>
+        </div>
+        <div class="day-content">
+            <div class="time-slot">
+                <div class="time">上午</div>
+                <div class="activity">
+                    <div class="title">都江堰水利工程</div>
+                    <div class="desc">游览鱼嘴、飞沙堰、宝瓶口，老人可乘景区电瓶车</div>
+                </div>
+            </div>
+            <div class="time-slot">
+                <div class="time">下午</div>
+                <div class="activity">
+                    <div class="title">前往茂县</div>
+                    <div class="desc">午餐后出发，车程约2.5小时</div>
+                </div>
+            </div>
+            <div class="time-slot">
+                <div class="time">晚上</div>
+                <div class="activity">
+                    <div class="title">茂县入住与适应</div>
+                    <div class="desc">抵达后入住酒店，周边轻松散步适应高原气候</div>
+                </div>
+            </div>
+            <div class="time-slot">
+                <div class="time">住宿</div>
+                <div class="activity">
+                    <div class="title">茂县岷江隐里酒店</div>
+                    <div class="desc">报"于美霞、李毅、李霞"入住</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="day-card">
+        <div class="day-header">
+            <div class="date">10月4日 (周五)</div>
+            <div class="day">Day 4：茂县羌族风情深度游</div>
+        </div>
+        <div class="day-content">
+            <div class="time-slot">
+                <div class="time">9:00</div>
+                <div class="activity">
+                    <div class="title">坪头羌寨开城仪式</div>
+                    <div class="desc">观看羌寨开城仪式，体验羌族风情</div>
+                </div>
+            </div>
+            <div class="time-slot">
+                <div class="time">下午</div>
+                <div class="activity">
+                    <div class="title">叠溪海子</div>
+                    <div class="desc">观赏地震堰塞湖风光，路况平缓适合老人小孩</div>
+                </div>
+            </div>
+            <div class="time-slot">
+                <div class="time">晚上</div>
+                <div class="activity">
+                    <div class="title">茂县自由活动</div>
+                    <div class="desc">享受酒店设施或品尝当地美食</div>
+                </div>
+            </div>
+            <div class="time-slot">
+                <div class="time">住宿</div>
+                <div class="activity">
+                    <div class="title">茂县岷江隐里酒店</div>
+                    <div class="desc"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="day-card">
+        <div class="day-header">
+            <div class="date">10月5日 (周六)</div>
+            <div class="day">Day 5：茂县 → 成都，火锅盛宴</div>
+        </div>
+        <div class="day-content">
+            <div class="time-slot">
+                <div class="time">上午</div>
+                <div class="activity">
+                    <div class="title">返回成都</div>
+                    <div class="desc">酒店退房，车程约3.5小时</div>
+                </div>
+            </div>
+            <div class="time-slot">
+                <div class="time">下午</div>
+                <div class="activity">
+                    <div class="title">乐山大佛(备选)或补游三星堆</div>
+                    <div class="desc">根据前两天行程情况灵活安排</div>
+                </div>
+            </div>
+            <div class="time-slot">
+                <div class="time">晚上</div>
+                <div class="activity">
+                    <div class="title">成都火锅 & 川剧变脸</div>
+                    <div class="desc">品尝成都特色火锅，观看川剧变脸表演</div>
+                </div>
+            </div>
+            <div class="time-slot">
+                <div class="time">住宿</div>
+                <div class="activity">
+                    <div class="title">成都万达颐华酒店</div>
+                    <div class="desc"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="day-card">
+        <div class="day-header">
+            <div class="date">10月6日 (周日)</div>
+            <div class="day">Day 6：成都 → 天津</div>
+        </div>
+        <div class="day-content">
+            <div class="time-slot">
+                <div class="time">上午</div>
+                <div class="activity">
+                    <div class="title">酒店退房</div>
+                    <div class="desc">早餐后整理行李退房</div>
+                </div>
+            </div>
+            <div class="time-slot">
+                <div class="time">13:45-16:30</div>
+                <div class="activity">
+                    <div class="title">搭乘CA2954航班返回天津</div>
+                    <div class="desc">务必再次确认前往天府机场</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h2><span class="icon">✅</span>重要待办事项</h2>
+        <div class="todo-item">
+            <div class="todo-checkbox"><input type="checkbox"></div>
+            <div class="todo-content">
+                <div class="todo-title urgent">【紧急】预约成都大熊猫繁育研究基地门票(10月2日)</div>
+            </div>
+        </div>
+        <div class="todo-item">
+            <div class="todo-checkbox"><input type="checkbox"></div>
+            <div class="todo-content">
+                <div class="todo-title urgent">【紧急】预约三星堆博物馆门票(10月2日)</div>
+            </div>
+        </div>
+        <div class="todo-item">
+            <div class="todo-checkbox"><input type="checkbox"></div>
+            <div class="todo-content">
+                <div class="todo-title">确认包车司机已熟知全部行程</div>
+                <div class="todo-desc">特别明确10月1日、6日均前往天府机场</div>
+            </div>
+        </div>
+        <div class="todo-item">
+            <div class="todo-checkbox"><input type="checkbox"></div>
+            <div class="todo-content">
+                <div class="todo-title">准备所有入住人的有效身份证件</div>
+            </div>
+        </div>
+        <div class="todo-item">
+            <div class="todo-checkbox"><input type="checkbox"></div>
+            <div class="todo-content">
+                <div class="todo-title">关注茂县天气，准备保暖衣物</div>
+            </div>
+        </div>
+        <div class="todo-item">
+            <div class="todo-checkbox"><input type="checkbox"></div>
+            <div class="todo-content">
+                <div class="todo-title">出行前一天确认所有预订</div>
+                <div class="todo-desc">酒店、机票、火锅等</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        祝您全家旅途愉快！<br>
+        最后更新: 2024年9月
+    </div>
+
+    <script>
+        // 简单的交互功能：点击待办事项可以切换状态
+        document.querySelectorAll('.todo-checkbox input').forEach(checkbox => {
+            checkbox.addEventListener('click', function() {
+                const todoItem = this.closest('.todo-item');
+                if (this.checked) {
+                    todoItem.style.opacity = '0.6';
+                } else {
+                    todoItem.style.opacity = '1';
+                }
+            });
+        });
+        
+        // 添加一些视觉反馈
+        document.querySelectorAll('.day-header').forEach(header => {
+            header.addEventListener('click', function() {
+                this.parentElement.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
