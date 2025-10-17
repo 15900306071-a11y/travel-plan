@@ -3,594 +3,429 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>家庭旅游行程计划 - 成都&茂县国庆6日游</title>
+    <title>MBA学位申请与答辩待办清单</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
         }
         
         body {
             background-color: #f5f7fa;
             color: #333;
             line-height: 1.6;
-            padding: 15px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .header {
-            background: linear-gradient(135deg, #4a90e2, #63b3ed);
-            color: white;
             padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
             border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
         }
         
-        .header h1 {
-            font-size: 22px;
+        header {
+            background: linear-gradient(135deg, #1a6dba, #0d4d8c);
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 24px;
             margin-bottom: 8px;
+            font-weight: 600;
         }
         
-        .header .subtitle {
-            font-size: 14px;
+        .subtitle {
+            font-size: 15px;
             opacity: 0.9;
         }
         
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 18px;
-            margin-bottom: 18px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-            border-left: 4px solid #4a90e2;
-        }
-        
-        .card h2 {
-            font-size: 18px;
-            color: #2c5282;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .card h2 i {
-            margin-right: 8px;
-        }
-        
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-        
-        .info-item {
-            margin-bottom: 10px;
-        }
-        
-        .info-item .label {
-            font-size: 13px;
-            color: #718096;
-            margin-bottom: 4px;
-        }
-        
-        .info-item .value {
-            font-size: 15px;
-            font-weight: 500;
-        }
-        
-        .day-card {
-            margin-bottom: 15px;
+        .phase {
+            margin: 25px 0;
             border-radius: 10px;
             overflow: hidden;
-            background: white;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
         }
         
-        .day-header {
-            background: #4a90e2;
-            color: white;
-            padding: 14px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .day-header .date {
+        .phase-header {
+            padding: 18px 25px;
+            font-size: 18px;
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            color: white;
+        }
+        
+        .phase-header .phase-number {
+            background: rgba(255, 255, 255, 0.25);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
             font-size: 16px;
         }
         
-        .day-header .day {
-            font-size: 14px;
-            opacity: 0.9;
+        .phase-1 .phase-header {
+            background: linear-gradient(to right, #e74c3c, #c0392b);
         }
         
-        .day-content {
-            padding: 16px;
+        .phase-2 .phase-header {
+            background: linear-gradient(to right, #f39c12, #e67e22);
         }
         
-        .time-slot {
-            display: flex;
-            margin-bottom: 15px;
+        .phase-3 .phase-header {
+            background: linear-gradient(to right, #27ae60, #219653);
         }
         
-        .time-slot:last-child {
-            margin-bottom: 0;
+        .task-list {
+            padding: 0 20px 20px;
         }
         
-        .time {
-            min-width: 70px;
-            font-weight: 600;
-            color: #4a90e2;
-            font-size: 14px;
-        }
-        
-        .activity {
-            flex: 1;
-            padding-left: 10px;
-            border-left: 2px solid #e2e8f0;
-        }
-        
-        .activity .title {
-            font-weight: 600;
-            margin-bottom: 5px;
-            font-size: 15px;
-        }
-        
-        .activity .desc {
-            font-size: 13px;
-            color: #718096;
-        }
-        
-        .todo-item {
+        .task {
+            padding: 18px 0;
+            border-bottom: 1px solid #eee;
             display: flex;
             align-items: flex-start;
-            margin-bottom: 12px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid #edf2f7;
         }
         
-        .todo-item:last-child {
-            margin-bottom: 0;
-            padding-bottom: 0;
+        .task:last-child {
             border-bottom: none;
         }
         
-        .todo-checkbox {
-            margin-right: 10px;
-            margin-top: 2px;
+        .task-checkbox {
+            margin-right: 15px;
+            margin-top: 3px;
         }
         
-        .todo-content {
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        .task-content {
             flex: 1;
         }
         
-        .todo-title {
-            font-size: 15px;
-            margin-bottom: 4px;
+        .task-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 16px;
+            color: #2c3e50;
         }
         
-        .todo-desc {
-            font-size: 13px;
-            color: #718096;
+        .task-details {
+            font-size: 14px;
+            color: #555;
         }
         
-        .urgent {
-            color: #e53e3e;
+        .task-details ul {
+            margin-left: 20px;
+            margin-top: 5px;
+        }
+        
+        .task-details li {
+            margin-bottom: 5px;
+        }
+        
+        .important {
+            color: #e74c3c;
             font-weight: 600;
         }
         
-        .footer {
+        .note {
+            background: #fff9e6;
+            border-left: 4px solid #f1c40f;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 14px;
+        }
+        
+        footer {
             text-align: center;
-            margin-top: 30px;
             padding: 20px;
-            color: #718096;
-            font-size: 13px;
+            color: #7f8c8d;
+            font-size: 14px;
+            border-top: 1px solid #eee;
         }
         
-        .icon {
-            display: inline-block;
-            width: 20px;
-            text-align: center;
-            margin-right: 8px;
-        }
-        
-        .new-activity {
-            background-color: #fff9db;
-            border-left: 4px solid #ffd43b;
-        }
-        
-        .new-activity .title {
-            color: #e67700;
-        }
-        
-        @media (max-width: 480px) {
-            .info-grid {
-                grid-template-columns: 1fr;
+        @media (max-width: 600px) {
+            .container {
+                border-radius: 0;
+            }
+            
+            .task {
+                flex-direction: column;
+            }
+            
+            .task-checkbox {
+                margin-bottom: 10px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>家庭旅游行程计划</h1>
-        <div class="subtitle">成都&茂县国庆6日亲子游 · 2024年10月1日-10月6日</div>
-    </div>
-    
-    <div class="card">
-        <h2><span class="icon">ℹ️</span>基本信息</h2>
-        <div class="info-grid">
-            <div class="info-item">
-                <div class="label">出行日期</div>
-                <div class="value">10月1日 - 10月6日</div>
+    <div class="container">
+        <header>
+            <h1>MBA学位申请与答辩待办清单</h1>
+            <div class="subtitle">202511批次 · 天津大学</div>
+        </header>
+        
+        <div class="phase phase-1">
+            <div class="phase-header">
+                <div class="phase-number">1</div>
+                <div>第一阶段：答辩前准备</div>
             </div>
-            <div class="info-item">
-                <div class="label">出行人员</div>
-                <div class="value">家庭群成员</div>
-            </div>
-            <div class="info-item">
-                <div class="label">包车信息</div>
-                <div class="value">全顺9座 川G0D511</div>
-            </div>
-            <div class="info-item">
-                <div class="label">司机</div>
-                <div class="value">王巧方 18008043400</div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="card">
-        <h2><span class="icon">📅</span>行程概览</h2>
-        <div class="info-grid">
-            <div class="info-item">
-                <div class="label">10月1日</div>
-                <div class="value">天津→成都，武侯祠，锦里</div>
-            </div>
-            <div class="info-item">
-                <div class="label">10月2日</div>
-                <div class="value">熊猫基地，三星堆</div>
-            </div>
-            <div class="info-item">
-                <div class="label">10月3日</div>
-                <div class="value">都江堰→茂县</div>
-            </div>
-            <div class="info-item">
-                <div class="label">10月4日</div>
-                <div class="value">茂县羌寨，叠溪海子</div>
-            </div>
-            <div class="info-item">
-                <div class="label">10月5日</div>
-                <div class="value">茂县→汶川→成都，太古里</div>
-            </div>
-            <div class="info-item">
-                <div class="label">10月6日</div>
-                <div class="value">成都→天津</div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="card">
-        <h2><span class="icon">🏨</span>住宿信息</h2>
-        <div class="info-item">
-            <div class="label">10月1日-3日</div>
-            <div class="value">成都万达颐华酒店 (锦江区橡树林路163号)</div>
-            <div class="value">豪华双床1间 + 高级大床2间 (报中杏建筑)</div>
-        </div>
-        <div class="info-item">
-            <div class="label">10月3日-5日</div>
-            <div class="value">茂县岷江隐里酒店 (茂县晋茂大道218号)</div>
-            <div class="value">双床1间 + 大床2间 (报于美霞、李毅、李霞)</div>
-        </div>
-    </div>
-    
-    <div class="card">
-        <h2><span class="icon">✈️</span>航班信息</h2>
-        <div class="info-item">
-            <div class="label">去程 (10月1日)</div>
-            <div class="value">CA2953 天津→成都 (9:30-12:35)</div>
-        </div>
-        <div class="info-item">
-            <div class="label">回程 (10月6日)</div>
-            <div class="value">CA2954 成都→天津 (13:45-16:30)</div>
-        </div>
-        <div class="info-item">
-            <div class="label urgent">重要提示</div>
-            <div class="value urgent">务必告知司机前往天府机场</div>
-        </div>
-    </div>
-    
-    <h2 style="margin: 25px 0 15px; color: #2c5282; font-size: 20px;">每日详细行程</h2>
-    
-    <div class="day-card">
-        <div class="day-header">
-            <div class="date">10月1日 (周二)</div>
-            <div class="day">Day 1：天津 → 成都</div>
-        </div>
-        <div class="day-content">
-            <div class="time-slot">
-                <div class="time">9:30-12:35</div>
-                <div class="activity">
-                    <div class="title">搭乘CA2953航班抵达成都</div>
-                    <div class="desc">务必告知接机司机前往天府机场</div>
+            <div class="task-list">
+                <div class="task">
+                    <div class="task-checkbox">
+                        <input type="checkbox" id="task1">
+                    </div>
+                    <div class="task-content">
+                        <div class="task-title">论文查重与送审</div>
+                        <div class="task-details">
+                            通过查重，并完成校级首审及送审。<span class="important">此为后续所有流程的前提</span>。
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="time-slot">
-                <div class="time">下午</div>
-                <div class="activity">
-                    <div class="title">武侯祠 → 锦里古街</div>
-                    <div class="desc">已预约下午参观武侯祠，随后游览紧邻的锦里古街</div>
+                
+                <div class="task">
+                    <div class="task-checkbox">
+                        <input type="checkbox" id="task2">
+                    </div>
+                    <div class="task-content">
+                        <div class="task-title">准备学位申请材料</div>
+                        <div class="task-details">
+                            <ul>
+                                <li><span class="important">《申请硕士专业学位审批书》A版+B版</span>：本人及导师需手写签字</li>
+                                <li><span class="important">评阅意见</span>：2份（或更多）评阅意见，各打印1份，单面打印</li>
+                                <li><span class="important">《答辩评议书与表决票》</span>：准备3张，填写完整论文题目、姓名、学号</li>
+                                <li><span class="important">《学位信息上报表》</span>：在学位系统填写后，打印2份并手写签字，确保信息在一页A4纸上（竖版单面）</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="time-slot">
-                <div class="time">18:30</div>
-                <div class="activity">
-                    <div class="title">晚餐：大妙火锅(宽窄巷子店)</div>
-                    <div class="desc">卡座16号，表演时间19:00-19:30，不辣火锅选项</div>
+                
+                <div class="task">
+                    <div class="task-checkbox">
+                        <input type="checkbox" id="task3">
+                    </div>
+                    <div class="task-content">
+                        <div class="task-title">领取照片与成绩单</div>
+                        <div class="task-details">
+                            地点：25教学楼B区104办公室，找MBA教务老师
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="time-slot">
-                <div class="time">住宿</div>
-                <div class="activity">
-                    <div class="title">成都万达颐华酒店</div>
-                    <div class="desc">报"中杏建筑"入住</div>
+                
+                <div class="task">
+                    <div class="task-checkbox">
+                        <input type="checkbox" id="task4">
+                    </div>
+                    <div class="task-content">
+                        <div class="task-title">学工老师盖章</div>
+                        <div class="task-details">
+                            地点：25教学楼B区103办公室，为《审批书》A版第9页盖章
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="day-card">
-        <div class="day-header">
-            <div class="date">10月2日 (周三)</div>
-            <div class="day">Day 2：熊猫基地 & 三星堆</div>
-        </div>
-        <div class="day-content">
-            <div class="time-slot">
-                <div class="time">上午</div>
-                <div class="activity">
-                    <div class="title">成都大熊猫繁育研究基地</div>
-                    <div class="desc">重点参观幼年大熊猫别墅，建议早到避开人流</div>
+                
+                <div class="task">
+                    <div class="task-checkbox">
+                        <input type="checkbox" id="task5">
+                    </div>
+                    <div class="task-content">
+                        <div class="task-title">答辩审批表盖章</div>
+                        <div class="task-details">
+                            地点：25楼B区104祁老师办公室，为《审批书》第11页盖章
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="time-slot">
-                <div class="time">下午</div>
-                <div class="activity">
-                    <div class="title">三星堆博物馆</div>
-                    <div class="desc">参观青铜神树、纵目面具等文物，建议请讲解员</div>
+                
+                <div class="task">
+                    <div class="task-checkbox">
+                        <input type="checkbox" id="task6">
+                    </div>
+                    <div class="task-content">
+                        <div class="task-title">材料加盖学部公章</div>
+                        <div class="task-details">
+                            地点：25楼B区303办公室（公章管理老师）<br>
+                            需盖章文件：
+                            <ul>
+                                <li>《审批书》P9、P11</li>
+                                <li>3张《答辩评议书与表决票》</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="time-slot">
-                <div class="time">晚上</div>
-                <div class="activity">
-                    <div class="title">自由活动</div>
-                    <div class="desc">返回市区后自由安排晚餐与休息</div>
+                
+                <div class="task">
+                    <div class="task-checkbox">
+                        <input type="checkbox" id="task7">
+                    </div>
+                    <div class="task-content">
+                        <div class="task-title">准备答辩用论文</div>
+                        <div class="task-details">
+                            <ul>
+                                <li>打印4份，简单装订</li>
+                                <li><span class="important">关键：封皮和正文中必须隐去导师信息，保留学生本人信息</span></li>
+                                <li>准备PDF电子版（同样隐去导师信息），发送至指定邮箱</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="time-slot">
-                <div class="time">住宿</div>
-                <div class="activity">
-                    <div class="title">成都万达颐华酒店</div>
-                    <div class="desc"></div>
+                
+                <div class="task">
+                    <div class="task-checkbox">
+                        <input type="checkbox" id="task8">
+                    </div>
+                    <div class="task-content">
+                        <div class="task-title">准备答辩PPT</div>
+                        <div class="task-details">
+                            <ul>
+                                <li>PPT中不得出现导师相关信息</li>
+                                <li>末尾需阐述内外审修改意见及您的修改情况</li>
+                                <li>建议自带笔记本电脑备用</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="task">
+                    <div class="task-checkbox">
+                        <input type="checkbox" id="task9">
+                    </div>
+                    <div class="task-content">
+                        <div class="task-title">填写学位管理系统</div>
+                        <div class="task-details">
+                            <ul>
+                                <li>登录系统（需使用学校VPN）</li>
+                                <li>填写并提交《学位信息上报表》</li>
+                                <li>根据通知填写答辩委员会、时间地点、秘书等信息</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <div class="day-card">
-        <div class="day-header">
-            <div class="date">10月3日 (周四)</div>
-            <div class="day">Day 3：都江堰 → 茂县</div>
-        </div>
-        <div class="day-content">
-            <div class="time-slot">
-                <div class="time">上午</div>
-                <div class="activity">
-                    <div class="title">都江堰水利工程</div>
-                    <div class="desc">游览鱼嘴、飞沙堰、宝瓶口，老人可乘景区电瓶车</div>
-                </div>
+        
+        <div class="phase phase-2">
+            <div class="phase-header">
+                <div class="phase-number">2</div>
+                <div>第二阶段：答辩当天</div>
             </div>
-            <div class="time-slot">
-                <div class="time">下午</div>
-                <div class="activity">
-                    <div class="title">前往茂县</div>
-                    <div class="desc">午餐后出发，车程约2.5小时</div>
-                </div>
-            </div>
-            <div class="time-slot">
-                <div class="time">晚上</div>
-                <div class="activity">
-                    <div class="title">茂县入住与适应</div>
-                    <div class="desc">抵达后入住酒店，周边轻松散步适应高原气候</div>
-                </div>
-            </div>
-            <div class="time-slot">
-                <div class="time">住宿</div>
-                <div class="activity">
-                    <div class="title">茂县岷江隐里酒店</div>
-                    <div class="desc">报"于美霞、李毅、李霞"入住</div>
+            <div class="task-list">
+                <div class="task">
+                    <div class="task-checkbox">
+                        <input type="checkbox" id="task10">
+                    </div>
+                    <div class="task-content">
+                        <div class="task-title">携带所有材料入场</div>
+                        <div class="task-details">
+                            <ul>
+                                <li>《审批书》A版+B版</li>
+                                <li>所有评阅意见</li>
+                                <li>已盖章的《答辩评议书及表决票》3张</li>
+                                <li>纸质论文4份（3份给委员，1份自用）</li>
+                                <li>存有PPT的U盘</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <div class="day-card">
-        <div class="day-header">
-            <div class="date">10月4日 (周五)</div>
-            <div class="day">Day 4：茂县羌族风情深度游</div>
-        </div>
-        <div class="day-content">
-            <div class="time-slot">
-                <div class="time">9:00</div>
-                <div class="activity">
-                    <div class="title">坪头羌寨开城仪式</div>
-                    <div class="desc">观看羌寨开城仪式，体验羌族风情</div>
-                </div>
+        
+        <div class="phase phase-3">
+            <div class="phase-header">
+                <div class="phase-number">3</div>
+                <div>第三阶段：答辩通过后</div>
             </div>
-            <div class="time-slot">
-                <div class="time">下午</div>
-                <div class="activity">
-                    <div class="title">叠溪海子</div>
-                    <div class="desc">观赏地震堰塞湖风光，路况平缓适合老人小孩</div>
+            <div class="task-list">
+                <div class="task">
+                    <div class="task-checkbox">
+                        <input type="checkbox" id="task11">
+                    </div>
+                    <div class="task-content">
+                        <div class="task-title">提交分委会审核材料</div>
+                        <div class="task-details">
+                            <span class="important">（答辩通过后立即准备，逾期影响上会）</span><br><br>
+                            <strong>材料清单与装订顺序：</strong>
+                            <ol>
+                                <li>完整的《审批书》A版+B版</li>
+                                <li>《学位信息上报表》</li>
+                                <li>两份评阅意见</li>
+                                <li>表决票</li>
+                                <li><span class="important">独创性声明1页</span>（日期填答辩当天，本人和导师手写签字）</li>
+                            </ol>
+                            <br>
+                            <strong>文件内容填写：</strong>
+                            <ul>
+                                <li>《审批书》中"答辩记录"需填写完整（答辩秘书签字处留空）</li>
+                                <li>《审批书》P11"论文修改说明"需填写完整，学生和导师手写签字，日期填答辩后至上会前的某一天</li>
+                            </ul>
+                            <br>
+                            <strong>胶装纸质论文1本：</strong>
+                            <ul>
+                                <li>内含已签字的独创性声明</li>
+                                <li><span class="important">恢复所有信息</span>（封皮、扉页等不再隐去导师信息）</li>
+                                <li>按学校规定格式胶装</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="time-slot">
-                <div class="time">晚上</div>
-                <div class="activity">
-                    <div class="title">茂县自由活动</div>
-                    <div class="desc">享受酒店设施或品尝当地美食</div>
-                </div>
-            </div>
-            <div class="time-slot">
-                <div class="time">住宿</div>
-                <div class="activity">
-                    <div class="title">茂县岷江隐里酒店</div>
-                    <div class="desc"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="day-card">
-        <div class="day-header">
-            <div class="date">10月5日 (周六)</div>
-            <div class="day">Day 5：茂县 → 汶川 → 成都</div>
-        </div>
-        <div class="day-content">
-            <div class="time-slot">
-                <div class="time">上午</div>
-                <div class="activity">
-                    <div class="title">茂县酒店退房，前往汶川</div>
-                    <div class="desc">从茂县出发，途中前往汶川地震遗址</div>
-                </div>
-            </div>
-            <div class="time-slot">
-                <div class="time">上午</div>
-                <div class="activity new-activity">
-                    <div class="title">参观汶川地震遗址</div>
-                    <div class="desc">让孩子们了解历史，接受教育，缅怀逝者</div>
-                </div>
-            </div>
-            <div class="time-slot">
-                <div class="time">中午</div>
-                <div class="activity">
-                    <div class="title">返回成都</div>
-                    <div class="desc">从汶川出发返回成都，车程约2.5小时</div>
-                </div>
-            </div>
-            <div class="time-slot">
-                <div class="time">下午</div>
-                <div class="activity new-activity">
-                    <div class="title">太古里</div>
-                    <div class="desc">游览成都时尚地标，感受现代与传统融合的商业街区</div>
-                </div>
-            </div>
-            <div class="time-slot">
-                <div class="time">晚上</div>
-                <div class="activity">
-                    <div class="title">成都火锅 & 川剧变脸</div>
-                    <div class="desc">品尝成都特色火锅，观看川剧变脸表演</div>
-                </div>
-            </div>
-            <div class="time-slot">
-                <div class="time">住宿</div>
-                <div class="activity">
-                    <div class="title">成都万达颐华酒店</div>
-                    <div class="desc"></div>
+                
+                <div class="task">
+                    <div class="task-checkbox">
+                        <input type="checkbox" id="task12">
+                    </div>
+                    <div class="task-content">
+                        <div class="task-title">提交图书馆存档</div>
+                        <div class="task-details">
+                            <span class="important">（分委会结束后进行）</span><br><br>
+                            <ul>
+                                <li>将论文最终版电子版提交至图书馆官网</li>
+                                <li>图书馆审核通过后，将同一文件发送至邮箱：qixiaoqing@tju.edu.cn</li>
+                                <li><span class="important">命名格式</span>：MBA-学号-姓名-导师-论文题目</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <div class="day-card">
-        <div class="day-header">
-            <div class="date">10月6日 (周日)</div>
-            <div class="day">Day 6：成都 → 天津</div>
+        
+        <div class="note">
+            <strong>使用说明：</strong> 您可以逐项核对，点击复选框标记完成状态。请特别注意答辩前和答辩后的论文版本差异（是否隐去导师信息）。所有需要手写签字和加盖公章的环节，务必提前准备，留出充足时间。
         </div>
-        <div class="day-content">
-            <div class="time-slot">
-                <div class="time">上午</div>
-                <div class="activity">
-                    <div class="title">酒店退房</div>
-                    <div class="desc">早餐后整理行李退房</div>
-                </div>
-            </div>
-            <div class="time-slot">
-                <div class="time">13:45-16:30</div>
-                <div class="activity">
-                    <div class="title">搭乘CA2954航班返回天津</div>
-                    <div class="desc">务必再次确认前往天府机场</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="card">
-        <h2><span class="icon">✅</span>重要待办事项</h2>
-        <div class="todo-item">
-            <div class="todo-checkbox"><input type="checkbox"></div>
-            <div class="todo-content">
-                <div class="todo-title urgent">【紧急】预约成都大熊猫繁育研究基地门票(10月2日)</div>
-            </div>
-        </div>
-        <div class="todo-item">
-            <div class="todo-checkbox"><input type="checkbox"></div>
-            <div class="todo-content">
-                <div class="todo-title urgent">【紧急】预约三星堆博物馆门票(10月2日)</div>
-            </div>
-        </div>
-        <div class="todo-item">
-            <div class="todo-checkbox"><input type="checkbox"></div>
-            <div class="todo-content">
-                <div class="todo-title">确认包车司机已熟知全部行程</div>
-                <div class="todo-desc">特别明确10月1日、6日均前往天府机场，以及10月5日新增的汶川行程</div>
-            </div>
-        </div>
-        <div class="todo-item">
-            <div class="todo-checkbox"><input type="checkbox"></div>
-            <div class="todo-content">
-                <div class="todo-title">准备所有入住人的有效身份证件</div>
-            </div>
-        </div>
-        <div class="todo-item">
-            <div class="todo-checkbox"><input type="checkbox"></div>
-            <div class="todo-content">
-                <div class="todo-title">关注茂县天气，准备保暖衣物</div>
-            </div>
-        </div>
-        <div class="todo-item">
-            <div class="todo-checkbox"><input type="checkbox"></div>
-            <div class="todo-content">
-                <div class="todo-title">出行前一天确认所有预订</div>
-                <div class="todo-desc">酒店、机票、火锅等</div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="footer">
-        祝您全家旅途愉快！<br>
-        最后更新: 2024年9月
+        
+        <footer>
+            祝您答辩顺利！ • 天津大学MBA项目
+        </footer>
     </div>
 
     <script>
-        // 简单的交互功能：点击待办事项可以切换状态
-        document.querySelectorAll('.todo-checkbox input').forEach(checkbox => {
-            checkbox.addEventListener('click', function() {
-                const todoItem = this.closest('.todo-item');
-                if (this.checked) {
-                    todoItem.style.opacity = '0.6';
-                } else {
-                    todoItem.style.opacity = '1';
-                }
-            });
-        });
-        
-        // 添加一些视觉反馈
-        document.querySelectorAll('.day-header').forEach(header => {
-            header.addEventListener('click', function() {
-                this.parentElement.classList.toggle('active');
+        // 保存勾选状态到本地存储
+        document.addEventListener('DOMContentLoaded', function() {
+            // 从本地存储恢复勾选状态
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                const id = checkbox.id;
+                const isChecked = localStorage.getItem(id) === 'true';
+                checkbox.checked = isChecked;
+                
+                // 添加变化监听
+                checkbox.addEventListener('change', function() {
+                    localStorage.setItem(id, this.checked);
+                });
             });
         });
     </script>
