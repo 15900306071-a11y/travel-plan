@@ -1,648 +1,432 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>油车换电车投资回报分析</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>广西新春全家游 · 行程明细</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
-        
+
         body {
-            background-color: #f5f7fa;
-            color: #333;
-            line-height: 1.6;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+            background: #f0f7f0;
+            padding: 16px 12px 32px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
-        
-        .container {
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            padding: 30px;
-            margin-bottom: 30px;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eaeaea;
-        }
-        
-        h1 {
-            color: #2c3e50;
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-        
-        .subtitle {
-            color: #7f8c8d;
-            font-size: 16px;
-        }
-        
-        .current-cost {
-            background: linear-gradient(135deg, #fff9f9 0%, #fff0f0 100%);
-            border-left: 4px solid #e74c3c;
-            padding: 25px;
-            margin: 25px 0;
-            border-radius: 0 8px 8px 0;
-        }
-        
-        .current-cost h3 {
-            color: #2c3e50;
-            margin-bottom: 20px;
+
+        .page-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #1f4f2b;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
             display: flex;
             align-items: center;
-        }
-        
-        .current-cost h3 i {
-            margin-right: 10px;
-            font-size: 20px;
-        }
-        
-        .cost-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .cost-item {
-            background-color: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-            border: 1px solid #eaeaea;
-        }
-        
-        .cost-label {
-            font-weight: 600;
-            color: #555;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .cost-value {
-            font-size: 24px;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        
-        .cost-value.highlight {
-            color: #e74c3c;
-        }
-        
-        .unit {
-            font-size: 14px;
-            color: #7f8c8d;
-            font-weight: normal;
-        }
-        
-        .annual-summary {
-            background-color: #f8f9fa;
-            border-radius: 10px;
-            padding: 25px;
-            margin-top: 20px;
-        }
-        
-        .annual-summary h4 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-        }
-        
-        .annual-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-        
-        .annual-stat {
-            background-color: white;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-        }
-        
-        .annual-stat-value {
-            font-size: 22px;
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 5px;
-        }
-        
-        .annual-stat-label {
-            font-size: 14px;
-            color: #7f8c8d;
-        }
-        
-        .highlight-box {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-left: 4px solid #3498db;
-            padding: 20px;
-            margin: 25px 0;
-            border-radius: 0 8px 8px 0;
-        }
-        
-        .cost-breakdown {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .cost-card {
-            background-color: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-            border: 1px solid #eaeaea;
-        }
-        
-        .cost-card h3 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px dashed #ddd;
-            display: flex;
-            align-items: center;
-        }
-        
-        .cost-card h3 i {
-            margin-right: 10px;
-            font-size: 20px;
-        }
-        
-        .cost-detail-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #f5f5f5;
-        }
-        
-        .cost-detail-item:last-child {
-            border-bottom: none;
-            font-weight: bold;
-            color: #2c3e50;
-            padding-top: 10px;
-            margin-top: 10px;
-            border-top: 1px solid #eaeaea;
-        }
-        
-        .chart-container {
-            height: 400px;
-            margin: 30px 0;
-            position: relative;
-        }
-        
-        .summary {
-            background-color: #f8f9fa;
-            border-radius: 10px;
-            padding: 25px;
-            margin-top: 40px;
-            border-left: 4px solid #2ecc71;
-        }
-        
-        .summary h3 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .key-points {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        
-        .point {
-            background-color: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
-        }
-        
-        .point h4 {
-            color: #3498db;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .icon {
-            display: inline-block;
-            width: 24px;
-            height: 24px;
-            margin-right: 10px;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 24px;
-            font-weight: bold;
-            color: white;
-            font-size: 14px;
-        }
-        
-        .oil { background-color: #e74c3c; }
-        .elec { background-color: #2ecc71; }
-        .car { background-color: #3498db; }
-        .money { background-color: #f39c12; }
-        .road { background-color: #9b59b6; }
-        
-        .legend {
-            display: flex;
-            justify-content: center;
+            gap: 8px;
             flex-wrap: wrap;
-            gap: 20px;
-            margin: 20px 0;
         }
-        
-        .legend-item {
+        .page-title span {
+            background: #ffd966;
+            padding: 4px 12px;
+            font-size: 16px;
+            border-radius: 30px;
+            color: #2d5a2d;
+            font-weight: 500;
+        }
+        .subhead {
+            color: #3b6e4b;
+            margin-bottom: 20px;
+            font-size: 16px;
+            border-left: 4px solid #ffb347;
+            padding-left: 12px;
+            background: #eaf3e3;
+            border-radius: 0 8px 8px 0;
+            line-height: 1.4;
+            width: fit-content;
+            padding: 8px 16px 8px 12px;
+        }
+
+        .weather-tag {
+            background: #d9e9fa;
+            border-radius: 30px;
+            padding: 6px 14px;
+            font-size: 15px;
+            font-weight: 500;
+            color: #1e4b6e;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            width: fit-content;
+            margin: 8px 0 12px;
+            border: 1px solid #b8d3e8;
+        }
+
+        .day-card {
+            background: white;
+            border-radius: 28px;
+            padding: 18px 18px 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 18px rgba(0, 40, 20, 0.08);
+            border: 1px solid #d0e6cf;
+            transition: all 0.1s ease;
+        }
+
+        .day-header {
             display: flex;
             align-items: center;
-            margin-right: 15px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 8px;
         }
-        
-        .legend-color {
-            width: 20px;
-            height: 20px;
-            border-radius: 3px;
+        .day-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1e4620;
+            background: #e1f0dd;
+            padding: 6px 18px 6px 16px;
+            border-radius: 40px 12px 12px 40px;
+            margin-left: -8px;
+            line-height: 1.3;
+            word-break: break-word;
+        }
+        .day-detail {
+            margin-top: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .item-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 16px;
+            line-height: 1.45;
+            color: #1e331f;
+            border-bottom: 1px dashed #cde0d3;
+            padding-bottom: 10px;
+        }
+        .item-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .item-icon {
+            min-width: 28px;
+            font-size: 22px;
+            text-align: center;
+        }
+        .item-content {
+            flex: 1;
+        }
+        .item-label {
+            font-weight: 600;
+            color: #32643b;
+            display: inline-block;
             margin-right: 8px;
         }
-        
-        .oil-color { background-color: #e74c3c; }
-        .elec-color { background-color: #2ecc71; }
-        
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            color: #7f8c8d;
-            font-size: 14px;
-            padding-top: 20px;
-            border-top: 1px solid #eaeaea;
+        .highlight {
+            background: #fef7e0;
+            border-radius: 12px;
+            padding: 12px 14px;
+            border-left: 5px solid #f4a261;
+            font-weight: 500;
+            color: #5a3e1b;
+            margin-top: 10px;
         }
-        
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-            
-            .chart-container {
-                height: 300px;
-            }
-            
-            h1 {
-                font-size: 24px;
-            }
+        .badge {
+            background: #e15554;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 40px;
+            display: inline-block;
+            margin-right: 6px;
+            margin-bottom: 6px;
+        }
+        .badge-green {
+            background: #4c9f70;
+        }
+        .badge-blue {
+            background: #4a7a9c;
+        }
+        .small-note {
+            font-size: 14px;
+            color: #687f6d;
+            margin-top: 6px;
+            padding-left: 6px;
+            border-left: 2px solid #b5cfb9;
+        }
+        .hotel-address {
+            background: #f3faf0;
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-size: 15px;
+            color: #2a5730;
+            margin: 8px 0 4px;
+        }
+        .transport-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            background: #eef5f9;
+            border-radius: 14px;
+            padding: 10px 14px;
+            align-items: center;
+        }
+        .button-reminder {
+            background-color: #f1c40f;
+            color: #2d3e2d;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 18px;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 24px 0 8px;
+            box-shadow: 0 4px 0 #b38f1c;
+            text-align: center;
+        }
+        .footer-note {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 14px;
+            color: #6f8b77;
+            border-top: 1px dashed #bdd6c1;
+            padding-top: 20px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>油车换电车投资回报分析报告</h1>
-            <p class="subtitle">基于您的实际用车数据，8年使用周期的详细成本对比</p>
-        </header>
-        
-        <div class="current-cost">
-            <h3><div class="icon oil">油</div> 当前油车月度费用明细</h3>
-            
-            <div class="cost-grid">
-                <div class="cost-item">
-                    <div class="cost-label">每月加油费用</div>
-                    <div class="cost-value highlight">1,800<span class="unit">元/月</span></div>
-                </div>
-                
-                <div class="cost-item">
-                    <div class="cost-label">每月高速通行费</div>
-                    <div class="cost-value">983.8<span class="unit">元/月</span></div>
-                </div>
-                
-                <div class="cost-item">
-                    <div class="cost-label">每月总行驶里程</div>
-                    <div class="cost-value">3,440<span class="unit">公里/月</span></div>
-                </div>
-                
-                <div class="cost-item">
-                    <div class="cost-label">每月交通总费用</div>
-                    <div class="cost-value highlight">2,783.8<span class="unit">元/月</span></div>
-                </div>
-            </div>
-            
-            <div class="annual-summary">
-                <h4>📊 年度费用与里程汇总</h4>
-                <div class="annual-stats">
-                    <div class="annual-stat">
-                        <div class="annual-stat-value">21,600<span class="unit">元</span></div>
-                        <div class="annual-stat-label">年度加油费用</div>
-                    </div>
-                    
-                    <div class="annual-stat">
-                        <div class="annual-stat-value">11,805.6<span class="unit">元</span></div>
-                        <div class="annual-stat-label">年度高速通行费</div>
-                    </div>
-                    
-                    <div class="annual-stat">
-                        <div class="annual-stat-value">33,405.6<span class="unit">元</span></div>
-                        <div class="annual-stat-label">年度交通总费用</div>
-                    </div>
-                    
-                    <div class="annual-stat">
-                        <div class="annual-stat-value">41,280<span class="unit">公里</span></div>
-                        <div class="annual-stat-label">年度总行驶里程</div>
-                    </div>
-                </div>
-            </div>
+    <div class="page-title">
+        🌿 桂风壮韵全家行 <span>8人·老幼同乐</span>
+    </div>
+    <div class="subhead">
+        🧧 2026.2.18-2.25 · 天津⇄桂林·阳朔·北海·南宁
+    </div>
+
+    <!-- 核心提醒卡片 -->
+    <div style="background: #fef4e0; border-radius: 30px; padding: 16px; margin-bottom: 22px; border: 2px solid #f9d79f;">
+        <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 30px;">⏰</span>
+            <span style="font-weight: 700; font-size: 20px; color: #a7561a;">即时待办·务必留意</span>
         </div>
-        
-        <div class="highlight-box">
-            <h3><div class="icon car">车</div> 核心计算前提与假设</h3>
-            <p>• 油车与电车8年后残值均设定为：<strong>5,000元</strong></p>
-            <p>• 电费单价：<strong>0.5元/度</strong>，油价：<strong>7元/升</strong></p>
-            <p>• 油车保养：<strong>300元/万公里</strong>，电车保养：<strong>500元/2万公里</strong></p>
-            <p>• 对比方案：<span style="color: #e74c3c;">13万元油车</span> vs <span style="color: #2ecc71;">21万元电车</span></p>
-            <p>• 保险费用：油车约4,500元/年，电车约6,000元/年（均按市场估算）</p>
-            <p style="color: #7f8c8d; margin-top: 10px; font-size: 14px;">注：高速通行费在两种方案中均需支付，因此不影响对比结果。</p>
+        <div style="background: white; border-radius: 18px; padding: 14px;">
+            <p style="margin-bottom: 10px;">✅ <strong>2月20日 20:00</strong> 准时抢 <strong>遇龙河竹筏票</strong> (水厄底段, 小程序“遇龙河景区竹筏漂游”，两人同时抢)</p>
+            <p>✅ <strong>2月20日 全天</strong> 购买 <strong>涠洲岛往返船票</strong> (来游吧官网，提前三天)</p>
+            <p>🎭 <strong>千古情入园</strong>：2月21日15:00场，凭 <strong>于晓锋身份证</strong> 自助取票，4人同进 (订单号末尾6271)</p>
+            <p style="margin-top: 6px;">🧳 托运行李：天津出发建议托运厚外套；桂林→阳朔大件已由朋友寄送</p>
         </div>
-        
-        <h2>📈 8年总持有成本对比分析</h2>
-        
-        <div class="cost-breakdown">
-            <div class="cost-card">
-                <h3><div class="icon oil">油</div> 13万元油车总成本分解 (8年)</h3>
-                <div class="cost-detail-item">
-                    <span>购车落地支出</span>
-                    <span>141,500 元</span>
-                </div>
-                <div class="cost-detail-item">
-                    <span>能源费用 (21,672元/年 × 8年)</span>
-                    <span>173,376 元</span>
-                </div>
-                <div class="cost-detail-item">
-                    <span>保养费用 (1,238元/年 × 8年)</span>
-                    <span>9,904 元</span>
-                </div>
-                <div class="cost-detail-item">
-                    <span>保险费用 (4,500元/年 × 8年)</span>
-                    <span>36,000 元</span>
-                </div>
-                <div class="cost-detail-item">
-                    <span>减：8年后残值回收</span>
-                    <span>-5,000 元</span>
-                </div>
-                <div class="cost-detail-item">
-                    <span>8年总持有成本</span>
-                    <span style="color: #e74c3c; font-size: 1.1em;">355,780 元</span>
-                </div>
-            </div>
-            
-            <div class="cost-card">
-                <h3><div class="icon elec">电</div> 21万元电车总成本分解 (8年)</h3>
-                <div class="cost-detail-item">
-                    <span>购车落地支出</span>
-                    <span>210,000 元</span>
-                </div>
-                <div class="cost-detail-item">
-                    <span>能源费用 (3,096元/年 × 8年)</span>
-                    <span>24,768 元</span>
-                </div>
-                <div class="cost-detail-item">
-                    <span>保养费用 (1,032元/年 × 8年)</span>
-                    <span>8,256 元</span>
-                </div>
-                <div class="cost-detail-item">
-                    <span>保险费用 (6,000元/年 × 8年)</span>
-                    <span>48,000 元</span>
-                </div>
-                <div class="cost-detail-item">
-                    <span>减：8年后残值回收</span>
-                    <span>-5,000 元</span>
-                </div>
-                <div class="cost-detail-item">
-                    <span>8年总持有成本</span>
-                    <span style="color: #2ecc71; font-size: 1.1em;">286,024 元</span>
-                </div>
-            </div>
+    </div>
+
+    <!-- 第1天 (2月18日 周三) · 启程 -->
+    <div class="day-card">
+        <div class="day-header">
+            <span class="day-name">📅 第1天 (2月18日 周三) · 启程</span>
         </div>
-        
-        <div class="legend">
-            <div class="legend-item">
-                <div class="legend-color oil-color"></div>
-                <span>13万元油车方案</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-color elec-color"></div>
-                <span>21万元电车方案</span>
-            </div>
+        <div class="weather-tag">
+            <span>🌡️ 天津 -2~5℃ / 桂林 8~12℃ 阴有小雨</span>
         </div>
-        
-        <div class="chart-container">
-            <canvas id="cumulativeChart"></canvas>
-        </div>
-        
-        <div class="chart-container">
-            <canvas id="annualCostChart"></canvas>
-        </div>
-        
-        <div class="summary">
-            <h3><div class="icon money">✓</div> 基于数据的总结与建议</h3>
-            <p>通过8年使用周期的总持有成本对比分析，可以得出以下关键结论：</p>
-            
-            <div class="key-points">
-                <div class="point">
-                    <h4><div class="icon oil">1</div> 电车方案总成本显著更低</h4>
-                    <p>21万元电车方案8年总成本为<strong>28.6万元</strong>，比13万元油车方案的<strong>35.6万元</strong>节省<strong style="color: #2ecc71;">6.98万元</strong>，节省比例达<strong>19.6%</strong>。</p>
-                </div>
-                
-                <div class="point">
-                    <h4><div class="icon elec">2</div> 能源成本是决定性因素</h4>
-                    <p>在您每月3,440公里的高里程场景下，电车能源费用仅为油车的<strong>14.3%</strong>（每年节省18,576元），8年累计节省能源费用<strong>14.9万元</strong>。</p>
-                </div>
-                
-                <div class="point">
-                    <h4><div class="icon car">3</div> 回收购车差价需时</h4>
-                    <p>尽管电车总成本更低，但回收<strong>6.85万元购车差价</strong>仍需约<strong>4年</strong>时间（以每年节省17,282元计算）。</p>
-                </div>
-                
-                <div class="point">
-                    <h4><div class="icon road">4</div> 长期持有的经济性优势</h4>
-                    <p>从第5年开始，电车方案的累计总成本将低于油车方案。持有时间越长，电车经济性优势越明显。</p>
-                </div>
+        <div class="day-detail">
+            <div class="item-row">
+                <div class="item-icon">✈️</div>
+                <div class="item-content"><span class="item-label">航班</span> CA2901 07:25-10:30 · 天津滨海→桂林两江 <span style="background:#f0eef0; padding:2px 8px; border-radius:20px; margin-left:6px;">登机口204</span></div>
             </div>
-            
-            <div style="margin-top: 25px; padding: 15px; background-color: #e8f6f3; border-radius: 8px;">
-                <h4 style="color: #16a085;">📋 最终建议</h4>
-                <p>对于您每月超过3,400公里的高强度用车场景：</p>
-                <ol style="margin-left: 20px; margin-top: 10px;">
-                    <li><strong>从长期经济性角度</strong>，21万元电车方案是更优选择，8年可节省近7万元。</li>
-                    <li><strong>确保安装家用充电桩</strong>，以维持0.5元/度的低电价，这是实现经济优势的关键。</li>
-                    <li><strong>持有时间应超过4年</strong>，才能充分体现电车的成本优势。</li>
-                    <li><strong>实际决策时</strong>，还需考虑具体车型的保险费用、充电便利性及个人驾驶偏好等因素。</li>
-                </ol>
+            <div class="item-row">
+                <div class="item-icon">🚕</div>
+                <div class="item-content"><span class="item-label">接机</span> 2出租车 或 商务车+轿车 至酒店 (40分钟)</div>
+            </div>
+            <div class="hotel-address">
+                🏨 桂林漓江大瀑布饭店 · 秀峰区杉湖北路1号<br>3间江景大床房 (含早) 2.18-2.20
+            </div>
+            <div class="item-row">
+                <div class="item-icon">🛳️</div>
+                <div class="item-content"><span class="item-label">18:00 夜游两江四湖</span> 提前抵达码头，船上风大备好衣物</div>
             </div>
         </div>
     </div>
-    
-    <footer>
-        <p>本分析基于用户提供的行驶数据和假设条件，实际费用可能因市场价格、使用习惯等因素有所差异。</p>
-        <p>© 2025 汽车投资回报分析工具 | 数据更新时间：2025年12月</p>
-    </footer>
 
-    <script>
-        // 累计总成本折线图数据
-        const years = ['第0年', '第1年', '第2年', '第3年', '第4年', '第5年', '第6年', '第7年', '第8年'];
-        const oilCumulativeCosts = [141500, 168910, 196320, 223730, 251140, 278550, 305960, 333370, 355780];
-        const elecCumulativeCosts = [210000, 220128, 230256, 240384, 250512, 260640, 270768, 280896, 286024];
-        
-        // 年度使用成本堆叠柱状图数据
-        const oilAnnualCosts = {
-            energy: 21672,
-            maintenance: 1238,
-            insurance: 4500
-        };
-        
-        const elecAnnualCosts = {
-            energy: 3096,
-            maintenance: 1032,
-            insurance: 6000
-        };
-        
-        // 累计总成本折线图
-        const cumulativeCtx = document.getElementById('cumulativeChart').getContext('2d');
-        new Chart(cumulativeCtx, {
-            type: 'line',
-            data: {
-                labels: years,
-                datasets: [
-                    {
-                        label: '13万元油车累计总成本',
-                        data: oilCumulativeCosts,
-                        borderColor: '#e74c3c',
-                        backgroundColor: 'rgba(231, 76, 60, 0.1)',
-                        borderWidth: 3,
-                        fill: true,
-                        tension: 0.2
-                    },
-                    {
-                        label: '21万元电车累计总成本',
-                        data: elecCumulativeCosts,
-                        borderColor: '#2ecc71',
-                        backgroundColor: 'rgba(46, 204, 113, 0.1)',
-                        borderWidth: 3,
-                        fill: true,
-                        tension: 0.2
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: '8年累计总成本趋势对比（单位：元）',
-                        font: { size: 16 }
-                    },
-                    tooltip: {
-                        mode: 'index',
-                        callbacks: {
-                            label: function(context) {
-                                return `${context.dataset.label}: ${context.parsed.y.toLocaleString()}元`;
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: '累计总成本（元）'
-                        },
-                        ticks: {
-                            callback: function(value) {
-                                return value.toLocaleString();
-                            }
-                        }
-                    }
-                }
-            }
-        });
-        
-        // 年度使用成本堆叠柱状图
-        const annualCostCtx = document.getElementById('annualCostChart').getContext('2d');
-        new Chart(annualCostCtx, {
-            type: 'bar',
-            data: {
-                labels: ['油车年度成本', '电车年度成本'],
-                datasets: [
-                    {
-                        label: '能源费用',
-                        data: [oilAnnualCosts.energy, elecAnnualCosts.energy],
-                        backgroundColor: '#3498db',
-                        stack: 'stack'
-                    },
-                    {
-                        label: '保养费用',
-                        data: [oilAnnualCosts.maintenance, elecAnnualCosts.maintenance],
-                        backgroundColor: '#f39c12',
-                        stack: 'stack'
-                    },
-                    {
-                        label: '保险费用',
-                        data: [oilAnnualCosts.insurance, elecAnnualCosts.insurance],
-                        backgroundColor: '#9b59b6',
-                        stack: 'stack'
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: '年度使用成本分解对比（单位：元）',
-                        font: { size: 16 }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return `${context.dataset.label}: ${context.raw.toLocaleString()}元`;
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        stacked: true
-                    },
-                    y: {
-                        beginAtZero: true,
-                        stacked: true,
-                        title: {
-                            display: true,
-                            text: '年度成本（元）'
-                        },
-                        ticks: {
-                            callback: function(value) {
-                                return value.toLocaleString();
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    </script>
+    <!-- 第2天 (2月19日 周四) · 桂林 -->
+    <div class="day-card">
+        <div class="day-header">
+            <span class="day-name">⛰️ 第2天 (2月19日 周四) · 桂林</span>
+        </div>
+        <div class="weather-tag">🌧️ 8~15℃ 阴 东北风微风</div>
+        <div class="day-detail">
+            <div class="item-row">
+                <div class="item-icon">🐘</div>
+                <div class="item-content"><span class="item-label">上午 象鼻山</span> 提前公众号“象山景区”分时预约，带孩子拍城徽</div>
+            </div>
+            <div class="item-row">
+                <div class="item-icon">🏯</div>
+                <div class="item-content"><span class="item-label">下午 靖江王府</span> 提前2h网购，老人儿童半价；之后逛东西巷小吃</div>
+            </div>
+            <div class="item-row">
+                <div class="item-icon">🌃</div>
+                <div class="item-content"><span class="item-label">晚上</span> 正阳步行街自由活动</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第3天 (2月20日 周五) · 漓江精华 -->
+    <div class="day-card">
+        <div class="day-header">
+            <span class="day-name">🚢 第3天 (2月20日 周五) · 漓江精华</span>
+        </div>
+        <div class="weather-tag">🌤️ 8~24℃ 早晚温差大 阴转多云</div>
+        <div class="day-detail">
+            <div class="item-row">
+                <div class="item-icon">🛳️</div>
+                <div class="item-content"><span class="item-label">9:30-13:00 三星游船</span> 磨盘山→阳朔码头 (含午餐，已购票) 提前打车至码头</div>
+            </div>
+            <div class="item-row">
+                <div class="item-icon">🧳</div>
+                <div class="item-content"><span class="item-label">行李</span> 桂林→阳朔已安排寄送，轻装下船</div>
+            </div>
+            <div class="hotel-address">
+                🏨 桂林阳朔腾昇希尔顿花园酒店 · 兴坪镇新榕街63号<br>3间豪华大床房 2.20-2.22含早 (近20元背景)
+            </div>
+            <div class="item-row">
+                <div class="item-icon">🌉</div>
+                <div class="item-content"><span class="item-label">晚上</span> 打车逛阳朔西街 (人流大，看好老人小孩)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第4天 (2月21日 周六) · 遇龙河 & 千古情 -->
+    <div class="day-card" style="border-left: 6px solid #e67e22;">
+        <div class="day-header">
+            <span class="day-name">🎋 第4天 (2月21日 周六) · 遇龙河 & 千古情</span>
+        </div>
+        <div class="weather-tag">🌦️ 13~22℃ 小雨转阴</div>
+        <div class="day-detail">
+            <div class="item-row">
+                <div class="item-icon">🛶</div>
+                <div class="item-content">
+                    <span class="item-label">上午 遇龙河竹筏</span> 前提：2/20 20:00抢票成功！水厄底→综合码头 50分钟<br>
+                    <span class="small-note">👶 1m以下不可乘，穿好救生衣；包车前往码头(约40分钟)</span>
+                </div>
+            </div>
+            <div class="item-row">
+                <div class="item-icon">🎭</div>
+                <div class="item-content">
+                    <span class="item-label">15:00 桂林千古情</span> 已购票 订单号6271<br>
+                    <span class="badge">务必携带于晓锋身份证</span> 自助取票机换票，4人同时入园。可14:00提前入场玩亲子设施
+                </div>
+            </div>
+            <div class="transport-row">
+                🚐 建议全天包车 (兴坪-遇龙河-千古情-返回酒店)
+            </div>
+        </div>
+    </div>
+
+    <!-- 第5天 (2月22日 周日) · 奔赴北海 -->
+    <div class="day-card">
+        <div class="day-header">
+            <span class="day-name">🚄 第5天 (2月22日 周日) · 奔赴北海</span>
+        </div>
+        <div class="weather-tag">阳朔15~19℃小雨 → 北海19~26℃多云</div>
+        <div class="day-detail">
+            <div class="item-row">
+                <div class="item-icon">🚆</div>
+                <div class="item-content">
+                    <span class="item-label">08:57 阳朔站→南宁东 12:05 (D8262)</span> 兴坪酒店打车7km至高铁站<br>
+                    南宁东站内午餐，换乘<span class="item-label">13:06 D8361→北海 14:21</span>
+                </div>
+            </div>
+            <div class="hotel-address">
+                🏨 北海银滩皇冠假日酒店 · 银海区银滩四号路8号<br>高级海景大床3间 2.22-2.24含早
+            </div>
+            <div class="item-row">
+                <div class="item-icon">🏖️</div>
+                <div class="item-content"><span class="item-label">下午/晚上</span> 银滩漫步，侨港风情街 (越南小吃、糖水)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第6天 (2月23日 周一) · 涠洲岛 -->
+    <div class="day-card">
+        <div class="day-header">
+            <span class="day-name">⛴️ 第6天 (2月23日 周一) · 涠洲岛</span>
+        </div>
+        <div class="weather-tag">☁️ 20~27℃ 多云 注意防晒</div>
+        <div class="day-detail">
+            <div class="item-row">
+                <div class="item-icon">🎫</div>
+                <div class="item-content"><span class="item-label">船票</span> <strong>2月20日务必购买往返船票</strong> (来游吧官网，建议去程9:00左右，返程16:00-17:00)</div>
+            </div>
+            <div class="item-row">
+                <div class="item-icon">🛺</div>
+                <div class="item-content"><span class="item-label">岛上交通</span> 包观光车环岛：鳄鱼山、天主教堂、石螺口，南湾街海鲜加工</div>
+            </div>
+            <div class="small-note">⚠️ 鳄鱼山需步行，老人量力；备晕车药，看管好孩子</div>
+        </div>
+    </div>
+
+    <!-- 第7天 (2月24日 周二) · 南宁灯会 -->
+    <div class="day-card">
+        <div class="day-header">
+            <span class="day-name">🌃 第7天 (2月24日 周二) · 南宁灯会</span>
+        </div>
+        <div class="weather-tag">北海20~27℃多云 → 南宁15~22℃阴</div>
+        <div class="day-detail">
+            <div class="item-row">
+                <div class="item-icon">🚄</div>
+                <div class="item-content"><span class="item-label">10:01 北海站→南宁东 11:15 (D8318)</span> 之后打车至酒店</div>
+            </div>
+            <div class="hotel-address">
+                🏨 南宁南湖名都大酒店 · 青秀区双拥路30号<br>豪华湖景单3间 2.24-2.25含早
+            </div>
+            <div class="item-row">
+                <div class="item-icon">🏮</div>
+                <div class="item-content"><span class="item-label">下午/晚上</span> 青秀山风景区 + 东区新春灯会 (夜间人多，注意防走失)</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第8天 (2月25日 周三) · 返程 -->
+    <div class="day-card">
+        <div class="day-header">
+            <span class="day-name">✈️ 第8天 (2月25日 周三) · 返程</span>
+        </div>
+        <div class="weather-tag">🌥️ 11~15℃ 阴转多云</div>
+        <div class="day-detail">
+            <div class="item-row">
+                <div class="item-icon">🚕</div>
+                <div class="item-content"><span class="item-label">上午</span> 南湖公园散步 / 朋友安排聚餐</div>
+            </div>
+            <div class="item-row">
+                <div class="item-icon">🛫</div>
+                <div class="item-content"><span class="item-label">16:00 HU7628 南宁→天津</span> 建议12:00出发去机场 (商务车+轿车)</div>
+            </div>
+            <div class="small-note">🏁 20:00 抵达天津滨海，结束愉快旅程</div>
+        </div>
+    </div>
+
+    <!-- 住宿总览与应急 -->
+    <div style="background: #ddeee0; border-radius: 24px; padding: 16px; margin-top: 10px;">
+        <div style="font-size: 18px; font-weight: 700; color: #1d4d1d;">📌 酒店速览</div>
+        <div style="display: grid; gap: 10px; margin-top: 12px;">
+            <div>🏨 桂林漓江大瀑布 (2.18-2.20) 0773-2822881</div>
+            <div>🏨 阳朔希尔顿花园 (2.20-2.22) 0773-8758666</div>
+            <div>🏨 北海皇冠假日 (2.22-2.24) 0779-6666666</div>
+            <div>🏨 南宁南湖名都 (2.24-2.25) 0771-5881808</div>
+        </div>
+        <div style="background: #fff5c4; border-radius: 18px; padding: 12px; margin-top: 16px;">
+            <p style="font-weight:600;">👨‍👩‍👧‍👦 特别叮嘱</p>
+            <p>▪ 温差大“洋葱式穿衣”，老人孩子备足保暖衣物<br>
+            ▪ 防滑防水鞋具，随身带雨具<br>
+            ▪ 身份证/户口本随身，千古情需于晓锋身份证取票<br>
+            ▪ 遇龙河抢票2月20日20:00！两人同时抢</p>
+        </div>
+    </div>
+
+    <div class="footer-note">
+        ⭐ 祝旅途平安 · 漓江春暖 合家欢 ⭐
+    </div>
 </body>
 </html>
